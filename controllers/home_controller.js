@@ -4,8 +4,7 @@
 // Syntax : module.exports.actionName = function (req,res) {};
 
 module.exports.home = function (req,res){             // Module.exports because we want to send this function to route when home page route is requested
-   // return res.end('<h1> Welcome to Codeial</h1>');
    return res.render('home', {
-    title: "Shashank "
+    title: "Home Page "
 });
 }

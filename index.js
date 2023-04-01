@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const port = 8000;
 
+// Adding ejs Page layouts. It should be before routes because it will render first layout.ejs
+const expressLayouts = require('express-ejs-layouts');
+app.use(expressLayouts);
+
 // routing all the URLs to route index file i.e App should use this file for any URL
 app.use('/', require('./routes/index'));
 
