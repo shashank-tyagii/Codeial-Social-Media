@@ -6,14 +6,26 @@ module.exports.profile = function (req,res){             // Module.exports becau
     });
 }
 
-module.exports.signIn = function (req,res){             // Module.exports because we want to send this function to route when home page route is requested
+// Render Sign-In page
+module.exports.signIn = function (req,res){             
     return res.render('user_sign_in', {
         title: "Codeial | Sign In "
     });
 }
 
-module.exports.signUp = function (req,res){             // Module.exports because we want to send this function to route when home page route is requested
+// Render Sign-Up page
+module.exports.signUp = function (req,res){             
     return res.render('user_sign_up', {
         title: "Codeial | Sign Up "
     });
+}
+
+// To get the Sign-up data
+module.exports.create = function (req,res){             
+    // To-Do
+}
+
+// To get the Sign-In data
+module.exports.createSession = function (req,res){             
+    // To-Do
 }
