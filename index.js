@@ -1,9 +1,13 @@
 const express = require('express');
 const app = express();
 const port = 8000;
+const cookieParser = require('cookie-parser');
 
 // Setup database
 const db = require ('./config/mongoose');         // Start DB before starting express app
+
+// Setup and using cookie parser
+app.use(cookieParser());
 
 // Adding ejs Page layouts. It should be before routes because it will render first layout.ejs
 const expressLayouts = require('express-ejs-layouts');
