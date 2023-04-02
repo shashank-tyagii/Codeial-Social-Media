@@ -2,9 +2,10 @@
 
 const express= require ('express');
 const router = express.Router();
+const passport = require('passport');
 const homeController = require('../controllers/home_controller');
 
-router.get('/' , homeController.home);
+router.get('/' , passport.checkAuthentication , homeController.home);
 
 // This function will be used to route users route to users.js as all routes will come to index.js first and from here everything will be redirected
 router.use('/users', require('./users'));
