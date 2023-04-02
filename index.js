@@ -11,6 +11,9 @@ const session = require('express-session');
 const passport= require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
+const MongoStore = require('connect-mongo');      // to store session data in server cookies
+const { Connection } = require('mongoose');
+
 app.use(express.urlencoded({}));                   // Parsing form data from URL - Middleware, not for URL 
 
 // Setup and using cookie parser
@@ -37,8 +40,18 @@ app.use(session({
     resave: false,              // A session that is “initialized” not to be saved again and again 
     cookie: {
         maxAge: (1000 * 60 * 100)
-    }
-}));
+    },
+    store : MongoStore.create (    // used to store session cookies so that everytime i don't need to log-in when server starts
+        {
+            client : db.getClient(),
+            // dbName : 'db',
+            autoRemove : 'disabled'
+        },
+        function(err){
+            console.log(err || 'connect-mongodb setup ok')
+        }
+      )}
+));
 
 // Use passport authentication with encryption
 app.use(passport.initialize());              // Initiate the auth module
