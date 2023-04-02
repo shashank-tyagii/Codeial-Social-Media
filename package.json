@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass" : "sass --watch assets/scss:assets/css"
   },
   "keywords": [
     "Social"
@@ -23,5 +24,8 @@
     "mongoose": "^7.0.3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "sass": "^1.60.0"
   }
 }

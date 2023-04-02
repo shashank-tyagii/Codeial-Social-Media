@@ -12,7 +12,9 @@ const passport= require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
 const MongoStore = require('connect-mongo');      // to store session data in server cookies
-const { Connection } = require('mongoose');
+
+// const sassMiddleware = require('node-sass-middleware');  // CSS middleware
+const sass = require('sass');
 
 app.use(express.urlencoded({}));                   // Parsing form data from URL - Middleware, not for URL 
 
