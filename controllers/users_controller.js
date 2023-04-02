@@ -1,6 +1,7 @@
 // This fill will have all the user path www.example.com/users/route
 const User = require('../models/user');
 
+// Auth for profile is handled in route itself
 module.exports.profile = function (req,res){             // Module.exports because we want to send this function to route when home page route is requested
     return res.render('user_profile', {
         title: "My profile "
@@ -8,14 +9,20 @@ module.exports.profile = function (req,res){             // Module.exports becau
 }
 
 // Render Sign-In page
-module.exports.signIn = function (req,res){             
+module.exports.signIn = function (req,res){   
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }          
     return res.render('user_sign_in', {
         title: "Codeial | Sign In "
     });
 }
 
 // Render Sign-Up page
-module.exports.signUp = function (req,res){             
+module.exports.signUp = function (req,res){  
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }           
     return res.render('user_sign_up', {
         title: "Codeial | Sign Up "
     });

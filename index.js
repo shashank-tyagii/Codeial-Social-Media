@@ -43,7 +43,7 @@ app.use(session({
 // Use passport authentication with encryption
 app.use(passport.initialize());              // Initiate the auth module
 app.use(passport.session());                 // To encrypt/decrypt the cookie (After Serialize/deserialize)
-//app.use(passport.setAuthenticatedUser);      // Manual function to set user from cookies to locals/views
+app.use(passport.setAuthenticatedUser);      // Manual function to set user from cookies to locals/views
 
 // routing all the URLs to route index file i.e App should use this file for any URL
 app.use('/', require('./routes/index'));
