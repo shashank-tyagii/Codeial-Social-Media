@@ -50,5 +50,5 @@ module.exports.create = function (req,res){
 
 // To get the Sign-In data
 module.exports.createSession = function (req,res){             
-    // To-Do
+    return res.redirect('/');   // Middleware is handling session now, check routes 
 }

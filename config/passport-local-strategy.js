@@ -8,21 +8,20 @@ passport.use(new LocalStrategy({
     usernameField : 'email'             // In DB schma, username is the email
 }, 
 function(email, password, done) {
-    User.findOne({ email: email }, function (err, user) {  
-      if (err) { 
-        console.log('Error in finding user --> Paassport'); 
-        return done(err); 
-            }
+    User.findOne({ email: email }).then ((user) => {  
       if (!user) {             // User not found
         console.log('User not found');
         return done(null, false); 
         }
-      if (!user.verifyPassword(password)) { 
+      if (user.password != password) { 
         console.log('Invalid Password');
         return done(null, false); 
     }
     // User and password matches
       return done(null, user);
+    }).catch((err)=>{
+            console.log('Error in finding user --> Paassport'); 
+            return done(err); 
     });
   }
 ));
