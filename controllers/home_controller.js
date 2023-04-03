@@ -10,13 +10,17 @@ module.exports.home = function (req,res){             // Module.exports because 
     // res.cookie('user_id', 25);                        // Change cookie data
 
     // To show all the posts on Home page
-    Post.find().then(function(posts){
-        return res.render('home', {
-            title: "Home Page ",
-            posts : posts,        
+     Post.find().
+     populate('user').
+     then(function(posts){
+         return res.render('home', {
+               title: "Home Page ",
+               posts : posts,        
         })
+      }).catch((err)=>{
+      console.log(err);
+     });
+    }
 
-}).catch((err)=>{
-    console.log(err);
-})
-}
+
+// Each post document has user object ID
