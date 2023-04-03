@@ -11,7 +11,13 @@ module.exports.home = function (req,res){             // Module.exports because 
 
     // To show all the posts on Home page
      Post.find().
-     populate('user').
+     populate('user')              // This function will replace the user ID with user document in the posts
+    .populate({                    // Populate all users from comment array
+        path: 'comments',
+        populate: {
+            path: 'user'
+        }
+    }).
      then(function(posts){
          return res.render('home', {
                title: "Home Page ",
