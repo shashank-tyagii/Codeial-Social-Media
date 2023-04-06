@@ -4,6 +4,7 @@
 // Syntax : module.exports.actionName = function (req,res) {};
 
 const Post = require('../models/post');
+const User = require('../models/user');
 
 module.exports.home = function (req,res){             // Module.exports because we want to send this function to route when home page route is requested
     //console.log(req.cookies);                         // Request data from cookies
@@ -19,10 +20,15 @@ module.exports.home = function (req,res){             // Module.exports because 
         }
     }).
      then(function(posts){
-         return res.render('home', {
-               title: "Home Page ",
-               posts : posts,        
-        })
+        // show thw friends list and posts
+        User.find({}).then(function(users){
+            return res.render('home', {
+                title: "Home Page ",
+                posts : posts,
+                all_users : users        
+         })
+        });
+        
       }).catch((err)=>{
       console.log(err);
      });

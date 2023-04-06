@@ -3,9 +3,15 @@ const User = require('../models/user');
 
 // Auth for profile is handled in route itself
 module.exports.profile = function (req,res){             // Module.exports because we want to send this function to route when home page route is requested
-    return res.render('user_profile', {
-        title: "My profile "
-    });
+    User.findById(req.params.id).then(function(user){
+
+        return res.render('user_profile', {
+            title: "My profile ",
+            profile_user : user
+        });
+
+    })
+    
 }
 
 // Render Sign-In page
