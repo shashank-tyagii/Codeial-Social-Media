@@ -19,6 +19,12 @@
                 
             <li>
                 <p>
+                    <!-- Check whether user is logged in and the user is the same who created the post  -->
+                    <% if (locals.user && locals.user.id == post.user.id){ %>
+                    <small>
+                        <a href="/posts/destroy/<%= post.id %>">X</a>
+                    </small>
+                    <% } %>
                     <%= post.content %>
                     <br>
                     <small>
