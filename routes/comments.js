@@ -6,6 +6,7 @@ const commentsController = require('../controllers/comments_controller');
 
 // Dual auth - One on HTML page and other on Router
 router.post('/create', passport.checkAuthentication, commentsController.create);
+router.get('/destroy/:id', passport.checkAuthentication, commentsController.destroy);
 
 
 module.exports = router;
