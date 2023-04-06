@@ -47,29 +47,25 @@ module.exports.signUp = function (req,res){
 }
 
 // To get the Sign-up data
-module.exports.create = function (req,res){             
+module.exports.create = async function (req,res){             
     // First import the user schema at the top of the controller
    
     if(req.body.password != req.body.confirm_password){
         return res.redirect('back');
     }
 
-    User.findOne({email: req.body.email }).then(function(user){
+    let user = await User.findOne({email: req.body.email });
      
-        if (!user){    // User not present in DB
-            User.create(req.body).then(function(user){
-            return res.redirect('/users/sign-in');
-            }).catch((err)=>{
-                console.log("error in creating user while signing up");
-            });
-        }else{
-            return res.redirect('back');
-        };
+    if (!user){    // User not present in DB
+        User.create(req.body).then(function(user){
+        return res.redirect('/users/sign-in');
+        }).catch((err)=>{
+            console.log("error in creating user while signing up");
+        });
+    }else{
+        return res.redirect('back');
+    };
 
-    })
-    .catch((err)=>{
-        console.log("error in finding user in signing up");
-    });
 }
 
 
