@@ -77,9 +77,14 @@ module.exports.createSession = function (req,res){
 
 // To get the Sign-In data
 module.exports.deleteSession = function (req,res){             
-    req.logout();
-    req.flash('success', 'Logged Out successfully'); // Toast/flash message
-    res.redirect('/');
+    req.logout(function(err) {
+        if (err) { 
+          return next(err); 
+          }
+          req.flash('success', 'Logged Out successfully'); // Toast/flash message
+          res.redirect('/');
+      });
+   
 }
 
 
