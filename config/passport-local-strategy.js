@@ -5,22 +5,23 @@ const User = require('../models/user');   // import db schema
 
 //Authentication using passport
 passport.use(new LocalStrategy({
-    usernameField : 'email'             // In DB schma, username is the email
+    usernameField : 'email' ,            // In DB schma, username is the email
+    passReqToCallback : true,            // alows us to set argument in function as req.
 }, 
-function(email, password, done) {
+function(req, email, password, done) {
     User.findOne({ email: email }).then ((user) => {  
       if (!user) {             // User not found
-        console.log('User not found');
+        req.flash('error', 'User not found');
         return done(null, false); 
         }
       if (user.password != password) { 
-        console.log('Invalid Password');
+        req.flash('error', 'Invalid Username/Password');
         return done(null, false); 
     }
     // User and password matches
       return done(null, user);
     }).catch((err)=>{
-            console.log('Error in finding user --> Paassport'); 
+            req.flash('error', err);
             return done(err); 
     });
   }

@@ -6,7 +6,8 @@ module.exports.create = async function (req,res){
         let post = await Post.create({
             content : req.body.content,
             user : req.user._id,
-        })
+        });
+            req.flash('success', 'Post added successfully');
             return res.redirect('/');
 
     } catch (err){
@@ -24,6 +25,7 @@ module.exports.destroy = async function(req, res){
 
         // Delete all the comments on this post i.e all the comments having post ID as the query ID
         await Comment.deleteMany({post : req.params.id});
+        req.flash('success', 'Post and associated comments deleted successfully');
         return res.redirect('back');
 
     } else {

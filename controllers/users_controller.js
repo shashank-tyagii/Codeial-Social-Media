@@ -58,6 +58,7 @@ module.exports.create = async function (req,res){
      
     if (!user){    // User not present in DB
         User.create(req.body).then(function(user){
+        req.flash('success', 'User created successfully');
         return res.redirect('/users/sign-in');
         }).catch((err)=>{
             console.log("error in creating user while signing up");
