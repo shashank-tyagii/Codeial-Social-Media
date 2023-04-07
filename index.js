@@ -13,6 +13,9 @@ const passportLocal = require('./config/passport-local-strategy');
 
 const MongoStore = require('connect-mongo');      // to store session data in server cookies
 
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
+
 // const sassMiddleware = require('node-sass-middleware');  // CSS middleware
 const sass = require('sass');
 
@@ -59,6 +62,9 @@ app.use(session({
 app.use(passport.initialize());              // Initiate the auth module
 app.use(passport.session());                 // To encrypt/decrypt the cookie (After Serialize/deserialize)
 app.use(passport.setAuthenticatedUser);      // Manual function to set user from cookies to locals/views
+
+app.use(flash());                           // After session,because it will be transferred with session details
+app.use(customMware.setFlash);
 
 // routing all the URLs to route index file i.e App should use this file for any URL
 app.use('/', require('./routes/index'));

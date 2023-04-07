@@ -70,16 +70,16 @@ module.exports.create = async function (req,res){
 
 
 // To get the Sign-In data
-module.exports.createSession = function (req,res){             
+module.exports.createSession = function (req,res){      
+    req.flash('success', 'Logged In successfully'); // Toast/flash message       
     return res.redirect('/');   // Middleware is handling session now, check routes 
 }
 
 // To get the Sign-In data
 module.exports.deleteSession = function (req,res){             
-    req.logout(function(err) {
-        if (err) { return next(err); }
-        res.redirect('/');
-      });
+    req.logout();
+    req.flash('success', 'Logged Out successfully'); // Toast/flash message
+    res.redirect('/');
 }
 
 
