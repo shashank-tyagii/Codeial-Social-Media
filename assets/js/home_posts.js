@@ -13,6 +13,18 @@
                 success : function(data){
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
+                    deletePost($(` .delete-post-button`, newPost));  // To add AJAX deletePost function to each new post on "delete-post-button" class
+                    
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post published!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
+               
                 },
                 error : function(err){
                     console.log(err.responseText);
@@ -28,7 +40,7 @@
                     <p>
                         
                         <small>
-                            <a class="delete-post-button"  href="/posts/destroy/${ post.id }">X</a>
+                            <a class="delete-post-button"  href="/posts/destroy/${ post._id }">X</a>
                         </small>
                        
                         ${ post.content }
@@ -54,6 +66,34 @@
                     </div>
                     
                 </li>`)
+    }
+
+
+    // Mehtod to delete a post in DOM
+    let deletePost = function(deleteLink){
+        $(deleteLink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type : 'get',
+                url : $(deleteLink).prop('href'),          // To get Propeety (Href) link when the user makes deleteLink action 
+                success : function(data){ 
+                    $(`#post-${data.data.post_id}`).remove();  // <li id="post-<%= post._id %>"> is the post list ID
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post published!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
+                },
+                error : function(error){
+                    console.log(error.responseText);
+                }
+            })
+        });
     }
 
 

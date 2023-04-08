@@ -14,6 +14,7 @@ module.exports.home = async function (req,res){          // Module.exports becau
 
          // To show all the posts on Home page
         let posts = await Post.find().populate('user')      // Populate - This function will replace the user ID with user document in the posts
+        .sort('-createdAt')
         .populate({                                      // Populate all users from comment array
             path: 'comments',
             populate: {
