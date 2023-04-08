@@ -7,6 +7,7 @@ module.exports.create = async function (req,res){
             content : req.body.content,
             user : req.user._id,
         });
+
         if (req.xhr){                               //XMLHTTPRequest -> AJAX request
             return res.status(200).json({
                 data : {
