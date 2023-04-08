@@ -11,7 +11,7 @@ module.exports.create = async function(req, res){
             let comment = await Comment.create({
                 content: req.body.content,
                 post: req.body.post, 
-                user: req.user._id                   // save user ID in the comments
+                user: req.user                   // save user ID in the comments
             });
 
             post.comments.push(comment);             // Add this comments to the Post -> comment array
