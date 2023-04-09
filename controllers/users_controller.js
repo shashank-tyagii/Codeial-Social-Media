@@ -22,6 +22,7 @@ module.exports.update = async function (req,res){
             // Multer will process the request and make available all the details and file related details
             User.uploadedAvatar(req,res,function(err){              
                 if(err){console.log('Multer error : ', err)};
+                // console.log(req.file);
 
                 user.name = req.body.name;
                 user.email = req.body.email;
@@ -29,6 +30,7 @@ module.exports.update = async function (req,res){
                 if(req.file){
                     // This is saving the path of the uploaded file into the avatar field of the user
                     user.avatar = User.avatarPath + '/' + req.file.filename;
+                    console.log(user.avatar);
                 }
                 user.save();
                 return res.redirect('back');

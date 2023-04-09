@@ -27,6 +27,9 @@ app.use(cookieParser());
 // setup all Static files - Images, CSS and JS as a middleware to render
 app.use (express.static('./assets'));                // Middleware to include CSS,JS, Images etc
 
+//Make the uploads path available to the user
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
 // Adding ejs Page layouts. It should be before routes because it will render first layout.ejs
 app.use(expressLayouts);
 app.set('layout extractStyles', true);   // Extract CSS file to the layout.ejs

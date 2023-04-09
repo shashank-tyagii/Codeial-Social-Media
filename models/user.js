@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose');
 const multer  = require('multer');
 const path = require('path');
-const AVATAR_PATH = path.join('uploads/users/avatar');  // Relative filepath for storing avatar
+const AVATAR_PATH = path.join('/uploads/users/avatar');  // Relative filepath for storing avatar
 
 const userSchema = new mongoose.Schema( {
     email : {
@@ -27,10 +27,10 @@ const userSchema = new mongoose.Schema( {
 
 let storage = multer.diskStorage({                        // Diskstorage - Local storage
     destination: function (req, file, cb) {               // Request, file and callback function
-      cb(null, path.join(__dirname, '..', AVATAR_PATH))   // Absolute path for storing file
+      cb(null, path.join(__dirname, '..' , AVATAR_PATH))   // Absolute path for storing file
     },
     filename: function (req, file, cb) {                 // File name - add miliseconds timestamp
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      const uniqueSuffix = Date.now();
       cb(null, file.fieldname + '-' + uniqueSuffix)      // Field that contains the file in the HTTP request
     }
   });
