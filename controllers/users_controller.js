@@ -1,5 +1,7 @@
 // This fill will have all the user path www.example.com/users/route
 const User = require('../models/user');
+const path = require('path');
+const fs = require('fs');
 
 // Auth for profile is handled in route itself
 module.exports.profile = function (req,res){             // Module.exports because we want to send this function to route when home page route is requested
@@ -28,6 +30,10 @@ module.exports.update = async function (req,res){
                 user.email = req.body.email;
 
                 if(req.file){
+                    //If avatar is already present, replace it.
+                    if(user.avatar){           
+                        fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+                    }
                     // This is saving the path of the uploaded file into the avatar field of the user
                     user.avatar = User.avatarPath + '/' + req.file.filename;
                     console.log(user.avatar);
