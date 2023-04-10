@@ -14,9 +14,9 @@ router.use('/posts', require('./posts'));
 
 router.use('/comments', require('./comments'));
 
-// For any other routes, add here ---
+// For API requests, direct to API index file
 
-
+router.use('/api', require('./api'));
 
 // Exporting this to be available/use at main index.js file 
 module.exports = router;  
