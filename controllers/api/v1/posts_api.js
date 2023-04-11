@@ -21,19 +21,26 @@ module.exports.index = async function(req,res){
 
 
 
-// Delete a post and associated comments
+// Delete a post and associated comments - authorization
 module.exports.destroy = async function(req, res){
     try {
         let post = await Post.findById(req.params.id);
         
-        post.deleteOne();
+        if (post.user == req.user.id){
+            post.deleteOne();
     
-        // Delete all the comments on this post i.e all the comments having post ID as the query ID
-        await Comment.deleteMany({post : req.params.id});
+            // Delete all the comments on this post i.e all the comments having post ID as the query ID
+             await Comment.deleteMany({post : req.params.id});
 
-        return res.status(200).json({
+            return res.status(200).json({
             message : " Post and associated comments deleted successfully"
         });
+        } else{
+            return res.status(401).json({
+            message : 'Internal server errror'
+        });
+        }
+        
     } 
     catch(err){
         return res.status(500).json({

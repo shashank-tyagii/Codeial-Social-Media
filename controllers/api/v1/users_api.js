@@ -15,14 +15,14 @@ module.exports.createSession = async function (req,res){
         return res.status(200).json({
             message : "Sign in successful. Keep your token safe",
             data : {
-                token : jwt.sign(user.toJSON(), 'codeial', {expiresIn : 10000})
+                token : jwt.sign(user.toJSON(), 'codeial', {expiresIn : 100000})
             }
         })
 
     } catch (err){
         console.log('Error in JWT Auth', err);
         return res.status(500).json({
-            messgae : 'Internal server errror'
+            message : 'Internal server errror'
         })
     }
 }

@@ -6,12 +6,13 @@ const User = require('../models/user');
 
 // options to control how the token is extracted from the request or verified
 let opts = {                                      
-    jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken,
+    jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey : 'codeial',                     // Acts as a key to encrypt and decrypt
 }
 
-passport.use(new JWTStrategy(opts, function(jwtPayload,done){
-    if (err){ console.log('Error JWT : ', err); return;}
+passport.use(new JWTStrategy(opts, async function(jwtPayload,done){
+   // if (err){ console.log('Error JWT : ', err); return;}
+    let user = await User.findById(jwtPayload._id);
 
     if(user){
         return done(null,user);
