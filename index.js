@@ -10,6 +10,7 @@ const db = require ('./config/mongoose');         // Start DB before starting ex
 const session = require('express-session');
 const passport= require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');         // For JWT token
 
 const MongoStore = require('connect-mongo');      // to store session data in server cookies
 
