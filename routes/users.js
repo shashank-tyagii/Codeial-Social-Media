@@ -20,5 +20,9 @@ router.post('/create_session', passport.authenticate(
     {failureRedirect : '/users/sign-in'},
 ), usersController.createSession);
 
+//When user click on the Login by google button and callback/return from google 
+router.get('/auth/google' , passport.authenticate('google', {scope : ['profile', 'email']}));
+router.get('/auth/google/calback', passport.authenticate('google', {failureRedirect : '/users/sign-in'}), usersController.createSession);
+
 // Exporting this to be available/use at main index.js file 
 module.exports = router; 
