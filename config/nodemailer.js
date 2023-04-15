@@ -2,14 +2,14 @@ const nodemailer = require ('nodemailer');
 const ejs = require ('ejs');
 const path = require ('path');
 
-// Transporter sends the email
-let transporter = nodemailer.createTransport({
-    service : 'gmail',
-    host : 'smtp.gmail.com',                 // SMTP Config
-    port : '587',                            // 465- SSL, 587 - TSL
-    auth : {
-        user: '',
-        pass : ''
+// Transporter sends the email - Mail protocols - SMTP , IMAP, POP
+// let testAccount = nodemailer.createTestAccount();
+const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+        user: 'immanuel.mccullough27@ethereal.email',
+        pass: 'eQQ8Du6sXJ12GbgJeY'
     }
 });
 
@@ -17,10 +17,10 @@ let transporter = nodemailer.createTransport({
 let renderTemplate = (data, relativePath) =>{
     let mailHTML;
     ejs.renderFile(
-        path.join(__dirname, '../views/mailers', relativePath),
+        path.join(__dirname, '../views/mailers', relativePath),       // EJS folder
         data,
         function(err, template){
-            if (err) { console.log ('Error in rendering template'); return ;}
+            if (err) { console.log ('Error in rendering template', err); return ;}
 
             mailHTML = template;
         }
