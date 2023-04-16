@@ -13,5 +13,17 @@ module.exports.chatSockets = function(socketServer) {
         socket.on('disconnect', () => {
             console.log('Socket disconnected');
         });
+
+        //Receiving request for joining from emit function on client side
+        socket.on('join_room', (data) => {
+            console.log('joining request received', data);
+            
+            //Join the user to the chat room name "codeial", if not exists, create a chatroom and join
+            socket.join(data.chatroom);                    // data.chatroom : Codeial
+            
+            //Acknowledging all members in the that chat room that new user joined
+            io.in(data.chatroom).emit('user_joined', data); // emit back to the client
+        });
+
     });
 }
