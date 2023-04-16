@@ -21,11 +21,13 @@ const customMware = require('./config/middleware');
 // const sassMiddleware = require('node-sass-middleware');  // CSS middleware
 const sass = require('sass');
 
-// Websocket server 
+// setup the chat server to be used with socket.io
 const chatServer = require('http').Server(app);
-const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
-chatServer.listen(5000);                                  // Chat server Port
-console.log('Chat server running on port : 5000');
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat server is listening on port 5000');
+
+
 
 app.use(express.urlencoded({}));                   // Parsing form data from URL - Middleware, not for URL 
 
