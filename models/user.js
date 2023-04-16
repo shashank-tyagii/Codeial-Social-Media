@@ -20,6 +20,13 @@ const userSchema = new mongoose.Schema( {
     avatar: {
         type : String,           // We will store the file path here
     },
+    friendships: [
+        { 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Friendship' 
+        }
+    ]
+    
 }, {
     timestamps : true
 }
