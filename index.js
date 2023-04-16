@@ -21,6 +21,12 @@ const customMware = require('./config/middleware');
 // const sassMiddleware = require('node-sass-middleware');  // CSS middleware
 const sass = require('sass');
 
+// Websocket server 
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
+chatServer.listen(5000);                                  // Chat server Port
+console.log('Chat server running on port : 5000');
+
 app.use(express.urlencoded({}));                   // Parsing form data from URL - Middleware, not for URL 
 
 // Setup and using cookie parser
