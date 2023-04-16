@@ -25,5 +25,11 @@ module.exports.chatSockets = function(socketServer) {
             io.in(data.chatroom).emit('user_joined', data); // emit back to the client
         });
 
+         //Emitting receive messsage event when handled send message
+         socket.on("send_message", function (data) {
+            console.log("Send message request received");
+            io.in(data.chatroom).emit("receive_message", data);
+        });
+
     });
 }
