@@ -13,9 +13,36 @@
                 <input type="submit"  value="Update">
             </form>
             
-        <%}else{%>    
-            <!-- else show only the profile info -->
-            <!-- Setauthenticateduser function is used to retrieve from cookies to views -->
-            <p><%= profile_user.name %></p>
-            <p><%= profile_user.email %></p>
-        <%} %>
+         
+ <%}else{%>    
+    <!-- else show only the profile info -->
+    <p><%= profile_user.name %></p>
+    <p><%= profile_user.email %></p>
+    
+    <div class="btn-grp">
+        <% let isFriend = false %>
+        <% for(let friendships of locals.populated_user.friendships){ %>
+            
+            <% if(friendships.to_user == profile_user.id || friendships.from_user == profile_user.id){ %>
+                <% isFriend = true %>
+            <% } %>
+            <% } %>
+                
+            <% if(isFriend){%>
+                <button>
+                    <a class="toggle-friend-btn" href="/friends/add-friend/?id=<%= profile_user.id %>">
+                        Remove Friend
+                    </a>
+                </button>
+            <% }else{%>
+                <button>
+                    <a class="toggle-friend-btn" href="/friends/add-friend/?id=<%= profile_user.id %>">
+                        Add Friend
+                    </a>
+                </button>
+            <% } %>          
+        </div>
+
+    <%} %>
+
+    <script src="js/toggle_friend.js"></script>

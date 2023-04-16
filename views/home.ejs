@@ -22,6 +22,60 @@
         </section>
         
         
+  <% if(locals.user) { %>
+    <div class="friends-list">
+      <div class="header">Friends</div>
+      <% if(locals.user.friendships.length == 0) {%>
+      <div class="no-friends">No friends found!</div>
+      <% }else{ %> <% for(friendships of locals.user.friendships){ %> <%
+      if(friendships.from_user.id == locals.user.id) {%>
+      <div>
+        <a class="friends-item" href="/users/profile?id=<%=friendships.to_user._id%>">
+          <div class="friends-img">
+            <% if(friendships.to_user.avtar == undefined){ %>
+              <img
+              class="rounded-circle" id="user-dp"
+              src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+              alt="logo"
+            />
+              <% }else{%>
+                <img
+                class="rounded-circle" id="user-dp"
+                src="<%= locals.user.avtar %>"
+                alt="logo"
+              />
+              <% } %>
+          </div>
+          <div class="friends-name"><%= friendships.to_user.name %></div>
+        </a>
+      </div>
+      <%}%> <% if(friendships.to_user.id == locals.user.id) {%>
+      <div>
+        <a class="friends-item" href="/users/profile?id=<%=friendships.from_user._id%>">
+          <div class="friends-img">
+            <% if(friendships.from_user.avtar == undefined){ %>
+              <img
+              class="rounded-circle" id="user-dp"
+              src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+              alt="logo"
+            />
+              <% }else{%>
+                <img
+                class="rounded-circle" id="user-dp"
+                src="<%= locals.user.avtar %>"
+                alt="logo"
+              />
+              <% } %>
+          </div>
+          <div class="friends-name"><%= friendships.from_user.name %></div>
+        </a>
+      </div>
+      <% } %> <% } %> <% } %>
+    </div>
+    <% } %> 
+  </div>
+  
+        
         <section id="user-friends">
             <h4>Friends</h4>
             <% for(u of all_users){%>

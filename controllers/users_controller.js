@@ -2,19 +2,46 @@
 const User = require('../models/user');
 const path = require('path');
 const fs = require('fs');
+const Friendships = require("../models/friendship");
 
 // Auth for profile is handled in route itself
-module.exports.profile = function (req,res){             // Module.exports because we want to send this function to route when home page route is requested
-    User.findById(req.params.id).then(function(user){
+// module.exports.profile = function (req,res){             // Module.exports because we want to send this function to route when home page route is requested
+//     User.findById(req.params.id).then(function(user){
+//         return res.render('user_profile', {
+//             title: "My profile ",
+//             profile_user : user
+//         });
+//     }); }
 
-        return res.render('user_profile', {
-            title: "My profile ",
-            profile_user : user
-        });
-
-    })
-    
-}
+module.exports.profile = async function (request, response) {
+    try {
+     
+      let user = await User.findOne({ _id: request.params.id });
+  
+      let friendship1,friendship2
+  
+      friendship1 = await Friendships.findOne({
+        from_user: request.user,
+        to_user: request.params.id,
+      });
+  
+      friendship2 = await Friendships.findOne({
+        from_user: request.params.id,
+        to_user: request.user,
+      });
+  
+      
+      let populated_user = await User.findById(request.user).populate('friendships');
+      return response.render("user_profile", {
+        title: "Codeial | Profile",
+        profile_user: user,
+        populated_user: populated_user
+      });
+    } catch (error) {
+      console.log("Error", error);
+      return;
+    }
+  };
 
 module.exports.update = async function (req,res){             
     if(req.user.id == req.params.id){
