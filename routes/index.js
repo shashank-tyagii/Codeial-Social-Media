@@ -9,10 +9,9 @@ router.get('/' , passport.checkAuthentication , homeController.home);
 
 // This function will be used to route users route to users.js as all routes will come to index.js first and from here everything will be redirected
 router.use('/users', require('./users'));
-
 router.use('/posts', require('./posts'));
-
 router.use('/comments', require('./comments'));
+router.use('/likes', require('./likes'));
 
 // For API requests, direct to API index file
 
