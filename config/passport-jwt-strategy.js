@@ -1,13 +1,13 @@
 const passport= require('passport');
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT= require('passport-jwt').ExtractJwt;
-
+const env = require('./environment');
 const User = require('../models/user');
 
 // options to control how the token is extracted from the request or verified
 let opts = {                                      
     jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey : 'codeial',                     // Acts as a key to encrypt and decrypt
+    secretOrKey : env.jwt_secret,                     // Acts as a key to encrypt and decrypt
 }
 
 passport.use(new JWTStrategy(opts, async function(jwtPayload,done){

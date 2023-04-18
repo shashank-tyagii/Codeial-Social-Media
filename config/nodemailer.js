@@ -1,17 +1,11 @@
 const nodemailer = require ('nodemailer');
 const ejs = require ('ejs');
 const path = require ('path');
+const env = require('./environment');
 
 // Transporter sends the email - Mail protocols - SMTP , IMAP, POP
 // let testAccount = nodemailer.createTestAccount();
-const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    auth: {
-        user: 'immanuel.mccullough27@ethereal.email',
-        pass: 'eQQ8Du6sXJ12GbgJeY'
-    }
-});
+const transporter = nodemailer.createTransport(env.smtp);
 
 // Template of sending email will be an EJS template
 let renderTemplate = (data, relativePath) =>{

@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');     // parses cookies attached to
 const bodyParser = require('body-parser');         // URL Middleware - to process data sent through an HTTP request body.
 const expressLayouts = require('express-ejs-layouts');   // LAYOUT for Views
 const db = require ('./config/mongoose');         // Start DB before starting express app
+const env = require('./config/environment');
+const path = require('path');
 
 // Used for session cookies and local passport auth - Importing. Using below to routes
 const session = require('express-session');
@@ -27,15 +29,13 @@ const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('chat server is listening on port 5000');
 
-
-
 app.use(express.urlencoded({}));                   // Parsing form data from URL - Middleware, not for URL 
 
 // Setup and using cookie parser
 app.use(cookieParser());
 
 // setup all Static files - Images, CSS and JS as a middleware to render
-app.use (express.static('./assets'));                // Middleware to include CSS,JS, Images etc
+app.use (express.static(env.asset_path));                // Middleware to include CSS,JS, Images etc
 
 //Make the uploads path available to the user
 app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -53,7 +53,7 @@ app.set('views' , './views');
 app.use(session({
     name: 'codeial',
     // TODO change the secret key before deployment in production mode - private/public key
-    secret: 'blahsomething',
+    secret: env.session_cookie_key,
     saveUninitialized: false,   // A session that is “uninitialized” not to be saved to the cookies
     resave: false,              // A session that is “initialized” not to be saved again and again 
     cookie: {
