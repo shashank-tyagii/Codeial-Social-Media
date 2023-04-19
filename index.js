@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');         // URL Middleware - to proces
 const expressLayouts = require('express-ejs-layouts');   // LAYOUT for Views
 const db = require ('./config/mongoose');         // Start DB before starting express app
 const env = require('./config/environment');
+const logger = require('morgan');
 const path = require('path');
 
 // Used for session cookies and local passport auth - Importing. Using below to routes
@@ -40,6 +41,7 @@ app.use (express.static(env.asset_path));                // Middleware to includ
 //Make the uploads path available to the user
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
+app.use(logger(env.morgan.mode , env.morgan.options));
 // Adding ejs Page layouts. It should be before routes because it will render first layout.ejs
 app.use(expressLayouts);
 app.set('layout extractStyles', true);   // Extract CSS file to the layout.ejs
