@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+require('./config/view-helpers')(app);
 const port = 8000;
 const cookieParser = require('cookie-parser');     // parses cookies attached to the client request object
 const bodyParser = require('body-parser');         // URL Middleware - to process data sent through an HTTP request body.
